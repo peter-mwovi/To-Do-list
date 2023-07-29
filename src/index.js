@@ -59,7 +59,6 @@ function activateDeleteListener(container) {
       const taskIndex = Number(parent.querySelector('.task-index').value);
       deleteTaskElement(tasksLocal, taskIndex);
       arrangeIndexes(tasksLocal); // Reassign correct indexes after deletion
-      displayTasks(); // Redisplay the updated task list
     }
   });
 }
