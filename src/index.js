@@ -126,7 +126,7 @@ function displayTasks() {
   }
   // Pass the taskList container to the activateDeleteListener function
   activateDeleteListener(taskList);
-};
+}
 
 document.getElementById('add-btn').addEventListener('click', () => {
   const taskInput = document.getElementById('task-input');
