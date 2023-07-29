@@ -30,5 +30,5 @@ function updateTaskText(value, index, tasksLocal) {
 }
 
 export {
-  createTaskElement, deleteTaskElement, updateTaskText, arrangeIndexes
+  createTaskElement, deleteTaskElement, updateTaskText, arrangeIndexes,
 };
