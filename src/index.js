@@ -65,7 +65,7 @@ function activateDeleteListener(delBtn) {
   delBtn.addEventListener('click', () => {
     const parent = delBtn.parentNode;
     const taskIndex = Number(
-      parent.getElementsByClassName('task-index')[0].value
+      parent.getElementsByClassName('task-index')[0].value,
     );
     deleteTaskElement(tasksLocal, taskIndex);
     arrangeIndexes(tasksLocal); // Reassign correct indexes after deletion
