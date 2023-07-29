@@ -152,3 +152,9 @@ window.onload = () => {
   loadTasksFromLocalStorage();
   displayTasks();
 };
+
+// Use DOMContentLoaded event to ensure the code executes after the DOM has fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+  loadTasksFromLocalStorage();
+  displayTasks();
+});
