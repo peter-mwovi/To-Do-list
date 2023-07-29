@@ -21,7 +21,7 @@
 - [📝 License](#license)
 
 <!-- PROJECT DESCRIPTION -->
-# 📖 [About the Project - To Do List: Set Structure.] <a name="about-project"></a>
+# 📖 [To Do List: Set Structure.] <a name="about-project"></a>
 
 **to_do_list** It's a minimalistic & dynamic To Do List web app! This is a project branch for setting up the structure of the To Do List web app.
 
