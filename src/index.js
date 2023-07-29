@@ -110,7 +110,7 @@ function activateTaskInputListeners() {
   });
 }
 
-const displayTasks = () => {
+function displayTasks() {
   const taskList = document.getElementById('lists');
   // Clear the existing tasks from the DOM
   taskList.innerHTML = '';
