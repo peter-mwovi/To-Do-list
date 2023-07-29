@@ -51,14 +51,17 @@ const displayTaskElement = (task) => {
   return taskItem;
 };
 
-function activateDeleteListener(delBtn) {
-  delBtn.addEventListener('click', () => {
-    const parent = delBtn.parentNode;
-    const taskIndex = Number(
-      parent.getElementsByClassName('task-index')[0].value,
-    );
-    deleteTaskElement(tasksLocal, taskIndex);
-    arrangeIndexes(tasksLocal); // Reassign correct indexes after deletion
+// Replace the activateDeleteListener function
+function activateDeleteListener(container) {
+  container.addEventListener('click', (e) => {
+    const delBtn = e.target.closest('.trash-icon');
+    if (delBtn) {
+      const parent = delBtn.parentNode;
+      const taskIndex = Number(parent.querySelector('.task-index').value);
+      deleteTaskElement(tasksLocal, taskIndex);
+      arrangeIndexes(tasksLocal); // Reassign correct indexes after deletion
+      displayTasks(); // Redisplay the updated task list
+    }
   });
 }
 
@@ -110,15 +113,23 @@ function activateTaskInputListeners() {
 
 const displayTasks = () => {
   const taskList = document.getElementById('lists');
+
+  // Clear the existing tasks from the DOM
+  taskList.innerHTML = '';
+
   if (tasksLocal.length > 0) {
     tasksLocal.forEach((task) => {
+      const taskItem = document.createElement('li'); // Create the <li> element
       const taskElement = displayTaskElement(task);
-      taskList.appendChild(taskElement);
+      taskItem.appendChild(taskElement); // Append the task element to the <li>
+      taskList.appendChild(taskItem); // Append the <li> to the task list container
     });
     activateMoreListeners();
     activateCheckboxListeners();
     activateTaskInputListeners();
   }
+  // Pass the taskList container to the activateDeleteListener function
+  activateDeleteListener(taskList);
 };
 
 document.getElementById('add-btn').addEventListener('click', () => {
