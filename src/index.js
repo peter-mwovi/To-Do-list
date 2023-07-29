@@ -51,6 +51,19 @@ const displayTaskElement = (task) => {
   return taskItem;
 };
 
+function activateDeleteListener(container) {
+  container.addEventListener('click', (e) => {
+    const delBtn = e.target.closest('.trash-icon');
+    if (delBtn) {
+      const parent = delBtn.parentNode;
+      const taskIndex = Number(parent.querySelector('.task-index').value);
+      deleteTaskElement(tasksLocal, taskIndex);
+      arrangeIndexes(tasksLocal); // Reassign correct indexes after deletion
+      displayTasks(); // Redisplay the updated task list
+    }
+  });
+}
+
 function activateMoreListeners() {
   const moreBtn = document.querySelectorAll('.three-dot');
   moreBtn.forEach((mb) => {
@@ -115,20 +128,6 @@ const displayTasks = () => {
   // Pass the taskList container to the activateDeleteListener function
   activateDeleteListener(taskList);
 };
-
-// Replace the activateDeleteListener function
-function activateDeleteListener(container) {
-  container.addEventListener('click', (e) => {
-    const delBtn = e.target.closest('.trash-icon');
-    if (delBtn) {
-      const parent = delBtn.parentNode;
-      const taskIndex = Number(parent.querySelector('.task-index').value);
-      deleteTaskElement(tasksLocal, taskIndex);
-      arrangeIndexes(tasksLocal); // Reassign correct indexes after deletion
-      displayTasks(); // Redisplay the updated task list
-    }
-  });
-}
 
 document.getElementById('add-btn').addEventListener('click', () => {
   const taskInput = document.getElementById('task-input');
