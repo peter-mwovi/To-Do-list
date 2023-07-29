@@ -5,7 +5,6 @@ import {
   updateTaskText,
   arrangeIndexes,
 } from './taskFunction.js';
-import { updateTaskStatus, clearCompletedTasks } from './statusUpdate.js';
 
 let tasksLocal = [];
 
@@ -52,14 +51,15 @@ const displayTaskElement = (task) => {
   return taskItem;
 };
 
-function activateDeleteListener(delBtn) {
-  delBtn.addEventListener('click', () => {
-    const parent = delBtn.parentNode;
-    const taskIndex = Number(
-      parent.getElementsByClassName('task-index')[0].value,
-    );
-    deleteTaskElement(tasksLocal, taskIndex);
-    arrangeIndexes(tasksLocal); // Reassign correct indexes after deletion
+function activateDeleteListener(container) {
+  container.addEventListener('click', (e) => {
+    const delBtn = e.target.closest('.trash-icon');
+    if (delBtn) {
+      const parent = delBtn.parentNode;
+      const taskIndex = Number(parent.querySelector('.task-index').value);
+      deleteTaskElement(tasksLocal, taskIndex);
+      arrangeIndexes(tasksLocal); // Reassign correct indexes after deletion
+    }
   });
 }
 
@@ -86,8 +86,6 @@ function activateCheckboxListeners() {
     cbi.addEventListener('change', (e) => {
       const clickedCheck = e.target;
       const parent = clickedCheck.parentNode;
-      const taskIndex = parent.getElementsByClassName('task-index')[0].value;
-      updateTaskStatus(taskIndex, clickedCheck.checked, tasksLocal);
       const taskInput = parent.getElementsByClassName('task-name')[0];
       if (clickedCheck.checked) {
         taskInput.classList.add('completed-task');
@@ -111,18 +109,24 @@ function activateTaskInputListeners() {
   });
 }
 
-const displayTasks = () => {
+function displayTasks() {
   const taskList = document.getElementById('lists');
+  // Clear the existing tasks from the DOM
+  taskList.innerHTML = '';
   if (tasksLocal.length > 0) {
     tasksLocal.forEach((task) => {
+      const taskItem = document.createElement('li'); // Create the <li> element
       const taskElement = displayTaskElement(task);
-      taskList.appendChild(taskElement);
+      taskItem.appendChild(taskElement); // Append the task element to the <li>
+      taskList.appendChild(taskItem); // Append the <li> to the task list container
     });
     activateMoreListeners();
     activateCheckboxListeners();
     activateTaskInputListeners();
   }
-};
+  // Pass the taskList container to the activateDeleteListener function
+  activateDeleteListener(taskList);
+}
 
 document.getElementById('add-btn').addEventListener('click', () => {
   const taskInput = document.getElementById('task-input');
@@ -136,10 +140,6 @@ document.getElementById('add-btn').addEventListener('click', () => {
   }
 });
 
-document.getElementById('remove-btn').addEventListener('click', () => {
-  clearCompletedTasks(tasksLocal);
-});
-
 const loadTasksFromLocalStorage = () => {
   tasksLocal = localStorage.getItem('tasks')
     ? JSON.parse(localStorage.getItem('tasks'))
@@ -150,3 +150,9 @@ window.onload = () => {
   loadTasksFromLocalStorage();
   displayTasks();
 };
+
+// Use DOMContentLoaded event to ensure the code executes after the DOM has fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+  loadTasksFromLocalStorage();
+  displayTasks();
+});
