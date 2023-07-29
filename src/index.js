@@ -103,7 +103,7 @@ function activateTaskInputListeners() {
   taskInput.forEach((ti) => {
     const parent = ti.parentNode;
     const taskIndex = Number(
-      parent.getElementsByClassName('task-index')[0].value
+      parent.getElementsByClassName('task-index')[0].value,
     );
     ti.addEventListener('change', () => {
       updateTaskText(ti.value, taskIndex, tasksLocal);
