@@ -32,3 +32,4 @@ function updateTaskText(value, index, tasksLocal) {
 export {
   createTaskElement, deleteTaskElement, updateTaskText, arrangeIndexes,
 };
+
