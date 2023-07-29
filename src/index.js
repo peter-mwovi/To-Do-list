@@ -85,7 +85,6 @@ function activateCheckboxListeners() {
     cbi.addEventListener('change', (e) => {
       const clickedCheck = e.target;
       const parent = clickedCheck.parentNode;
-      const taskIndex = parent.getElementsByClassName('task-index')[0].value;
       const taskInput = parent.getElementsByClassName('task-name')[0];
       if (clickedCheck.checked) {
         taskInput.classList.add('completed-task');

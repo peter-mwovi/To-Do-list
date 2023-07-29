@@ -29,7 +29,6 @@ function updateTaskText(value, index, tasksLocal) {
   localStorage.setItem('tasks', JSON.stringify(tasksLocal));
 }
 
-export {
-  createTaskElement, deleteTaskElement, updateTaskText, arrangeIndexes,
+export { 
+  createTaskElement, deleteTaskElement, updateTaskText, arrangeIndexes, 
 };
-
